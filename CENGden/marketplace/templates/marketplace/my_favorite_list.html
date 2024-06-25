@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite List</title>
+</head>
+<body>
+    <h1>My Favorite List</h1>
+
+    {% if favorite_items %}
+        <ul>
+            {% for favorite_item in favorite_items %}
+                <li><a href="{% url 'item_details' favorite_item.item.id %}">{{ favorite_item.item.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No favorite items found.</p>
+    {% endif %}
+
+    <a href="{% url 'index' %}">Back to Home Page</a>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        .button-container {
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>My Profile</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.username.errors }}
+        <p><label for="id_username">Username:</label>{{ form.username }}</p>
+        {{ form.email.errors }}
+        <p><label for="id_email">Email:</label>{{ form.email }}</p>
+        {{ form.phone_number.errors }} {# Add this line to display phone number errors #}
+        <p><label for="id_phone_number">Phone Number:</label>{{ form.phone_number }}</p> {# Add this line to include phone number field #}
+        {{ form.password1.errors }}
+        
+        <button type="submit">Update</button>
+    </form>
+    
+
+    <div class="button-container">
+        <a href="{% url 'index' %}"><button>Go to Home Page</button></a>
+    </div>
+</body>
+</html>

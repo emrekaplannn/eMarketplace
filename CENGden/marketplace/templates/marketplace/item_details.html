@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ item.title }}</title>
+    <style>
+        /* CSS to set fixed width and height for the item image */
+        .item-image {
+            width: 200px;  /* Set the desired width */
+            height: auto;  /* Automatically adjust height to maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ item.image_url|default:item.DEFAULT_IMAGE_URL }}" alt="{{ item.title }}" class="item-image">
+    <h1>{{ item.title }}</h1>
+    <p>Description: {{ item.description }}</p>
+    <p>Price: {{ item.price }}</p>
+    <p>Category: {{ item.category }}</p>
+    <!-- Add more details here as needed -->
+    <!-- Display owner's username and phone -->
+    <p>Owner Username: {{ owner_username }}</p>
+    <p>Owner Phone: {{ owner_phone }}</p>
+
+    <!-- Add to/remove from favorites buttons for authenticated users -->
+    {% if request.user.is_authenticated %}
+        {% if request.user.id != item.owner_id %}
+            {% if is_favorite %}
+                <!-- Remove from favorites button -->
+                <form action="{% url 'remove_from_favorite' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Remove from Favorites</button>
+                </form>
+            {% else %}
+                <!-- Add to favorites button -->
+                <form action="{% url 'add_to_favorite' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Add to Favorites</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    <!-- Conditional rendering of update and delete buttons -->
+    {% if request.user.is_superuser or request.user.id == item.owner_id %}
+        <!-- Update item button -->
+        <a href="{% url 'update_item' item.id %}"><button>Update Item</button></a>
+
+        <!-- Delete item form -->
+        <form action="{% url 'delete_item' item.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Delete Item</button>
+        </form>
+    {% endif %}
+</body>
+</html>

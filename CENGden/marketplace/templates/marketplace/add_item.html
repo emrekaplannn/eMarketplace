@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+    <script>
+        function showHideFields() {
+            var category = document.getElementById("id_category").value;
+            if(category){console.log(category);}
+            else{console.log("Boşş");}
+            var vehiclesFields = document.getElementById("vehiclesFields");
+            var computersFields = document.getElementById("computersFields");
+            var phonesFields = document.getElementById("phonesFields");
+            var privateLessonsFields = document.getElementById("privateLessonsFields");
+
+            vehiclesFields.style.display = category === 'vehicles' ? "block" : "none";
+            computersFields.style.display = category === 'computers' ? "block" : "none";
+            phonesFields.style.display = category === 'phones' ? "block" : "none";
+            privateLessonsFields.style.display = category === 'private_lessons' ? "block" : "none";
+        }
+    </script>
+</head>
+<body>
+    <h2>Add Item</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <!-- Vehicles Fields -->
+        <div id="vehiclesFields" style="display: none; margin-top: 20px;">
+            {% include 'vehicles_fields.html' %}
+        </div>
+
+        <!-- Computers Fields -->
+        <div id="computersFields" style="display: none; margin-top: 20px;">
+            {% include 'computers_fields.html' %}
+        </div>
+
+        <!-- Phones Fields -->
+        <div id="phonesFields" style="display: none; margin-top: 20px;">
+            {% include 'phones_fields.html' %}
+        </div>
+
+        <!-- Private Lessons Fields -->
+        <div id="privateLessonsFields" style="display: none; margin-top: 20px;">
+            {% include 'private_lessons_fields.html' %}
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        // Call the function initially to show/hide fields based on the selected category
+        showHideFields();
+    </script>
+</body>
+</html>

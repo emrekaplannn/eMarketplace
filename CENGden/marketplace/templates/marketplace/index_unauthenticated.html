@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Marketplace</title>
+</head>
+<body>
+    <h1>Welcome to the Marketplace</h1>
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a>
+    </p>
+    {% else %}
+    <p><a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+    <!-- Display categories menu -->
+    <div>
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="?category=vehicles">Vehicles</a></li>
+            <li><a href="?category=computers">Computers</a></li>
+            <li><a href="?category=phones">Phones</a></li>
+            <li><a href="?category=private_lessons">Private Lessons</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <a href="{% url 'index' %}">Display All Items</a>
+    </div>
+
+    <!-- Display all latest items -->
+    <div>
+        <h2>Latest Items</h2>
+        <ul>
+            {% for item in latest_items %}
+                <li>
+                    <!-- Link to item details page -->
+                    <a href="{% url 'item_details' item.id %}">{{ item.title }}</a>
+                    <!-- Display other item details as needed -->
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Button to add new item -->
+    <div>
+        <p>To add new items or manage your account, please <a href="{% url 'login' %}">log in</a>.</p>
+    </div>
+</body>
+</html>
