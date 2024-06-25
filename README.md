@@ -1,0 +1,1 @@
+Online marketplace that allows users to buy, sell, and rent a wide range of products and services, including real estate, vehicles, electronics, and more. It has also the functionalities like sending e-mails when the price of a favorite item changes etc.
